@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DBMESSAGES } from "./messages.js";
+import { DB_MESSAGES } from "./messages.js";
 
 class Database {
   constructor(uri, options) {
@@ -10,18 +10,18 @@ class Database {
   async connect() {
     try {
       await mongoose.connect(this.uri, this.options);
-      console.log(DBMESSAGES.DATABASE_CONNECTED);
+      console.log(DB_MESSAGES.DATABASE_CONNECTED);
     } catch (error) {
-      console.log(DBMESSAGES.DATABASE_CONNECTION_ERROR, error);
+      console.log(DB_MESSAGES.DATABASE_CONNECTION_ERROR, error);
     }
   }
 
   async disconnect() {
     try {
       await mongoose.disconnect();
-      console.log(DBMESSAGES.DATABASE_DISCONNECTED);
+      console.log(DB_MESSAGES.DATABASE_DISCONNECTED);
     } catch (error) {
-      console.log(DBMESSAGES.DATABASE_DISCONNECTION_ERROR, error);
+      console.log(DB_MESSAGES.DATABASE_DISCONNECTION_ERROR, error);
     }
   }
 }
