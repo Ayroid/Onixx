@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { Database } from "./config/database.js";
+import { USER_ROUTER } from "./routes/userRoute.js";
 
 // CONFIG
 dotenv.config();
@@ -27,6 +28,10 @@ app.use(express.static("public"));
 app.use("/api/test", (req, res) => {
   res.send("Server ✅");
 });
+
+// ROUTES
+
+app.use("/api/user", USER_ROUTER);
 
 // DATABASE DISCONNECTION
 
