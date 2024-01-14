@@ -1,5 +1,5 @@
 import { USERMODEL } from "../../models/userModel.js";
-import { USERMESSAGES } from "../../config/messages.js";
+import { USER_MESSAGES } from "../../config/messages.js";
 
 // DATABASE OPERATIONS
 
@@ -7,15 +7,15 @@ const createUserDB = async (data) => {
   try {
     const result = await USERMODEL(data).save();
     if (result !== null) {
-      console.log(USERMESSAGES.USER_CREATED, { userId: result._id });
+      console.log(USER_MESSAGES.USER_CREATED, { userId: result._id });
       return result;
     } else {
-      console.log(USERMESSAGES.USER_NOT_CREATED, { userId: result._id });
+      console.log(USER_MESSAGES.USER_NOT_CREATED, { userId: result._id });
       return false;
     }
   } catch (error) {
     console.log(
-      USERMESSAGES.ERROR_CREATING_USER,
+      USER_MESSAGES.ERROR_CREATING_USER,
       ({ data: data }, { error: error })
     );
     return false;
@@ -26,14 +26,14 @@ const readUserDB = async (query, fields) => {
   try {
     const result = await USERMODEL.find(query).select(fields);
     if (result) {
-      console.log(USERMESSAGES.USER_READ, { userId: result[0].email });
+      console.log(USER_MESSAGES.USER_READ, { userId: result[0].email });
       return result;
     } else {
-      console.log(USERMESSAGES.USER_NOT_READ, { userId: result[0].email });
+      console.log(USER_MESSAGES.USER_NOT_READ, { userId: result[0].email });
       return false;
     }
   } catch (error) {
-    console.log(USERMESSAGES.ERROR_READING_USER, {
+    console.log(USER_MESSAGES.ERROR_READING_USER, {
       query: query,
       error: error,
     });
@@ -48,15 +48,15 @@ const updateUserDB = async (query, data, fields) => {
       new: true,
     }).select(fields);
     if (result) {
-      console.log(USERMESSAGES.USER_UPDATED, { userId: result });
+      console.log(USER_MESSAGES.USER_UPDATED, { userId: result });
       return result;
     } else {
-      console.log(USERMESSAGES.USER_NOT_UPDATED, { userId: result });
+      console.log(USER_MESSAGES.USER_NOT_UPDATED, { userId: result });
       return false;
     }
   } catch (error) {
     console.log(
-      USERMESSAGES.ERROR_UPDATING_USER,
+      USER_MESSAGES.ERROR_UPDATING_USER,
       ({ query: query }, { data: data }, { error: error })
     );
     return false;
@@ -68,15 +68,15 @@ const deleteUserDB = async (query) => {
     const result = await USERMODEL.findOneAndDelete(query);
 
     if (result) {
-      console.log(USERMESSAGES.USER_DELETED, { userId: result._id });
+      console.log(USER_MESSAGES.USER_DELETED, { userId: result._id });
       return result;
     } else {
-      console.log(USERMESSAGES.USER_NOT_DELETED, { userId: result._id });
+      console.log(USER_MESSAGES.USER_NOT_DELETED, { userId: result._id });
       return false;
     }
   } catch (error) {
     console.log(
-      USERMESSAGES.ERROR_DELETING_USER,
+      USER_MESSAGES.ERROR_DELETING_USER,
       ({ query: query }, { error: error })
     );
     return false;

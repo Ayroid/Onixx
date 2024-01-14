@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Database } from "./config/database.js";
 import { USER_ROUTER } from "./routes/userRoute.js";
+import { MESSAGE_ROUTER } from "./routes/messageRoute.js";
 
 // CONFIG
 dotenv.config();
@@ -32,6 +33,7 @@ app.use("/api/test", (req, res) => {
 // ROUTES
 
 app.use("/api/user", USER_ROUTER);
+app.use("/api/message", MESSAGE_ROUTER);
 
 // DATABASE DISCONNECTION
 

@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
-dotenv.config();
 import { StatusCodes } from "http-status-codes";
-import { genSalt, hash } from "bcrypt";
-import { USERMESSAGES } from "../config/messages.js";
+import { genSalt, hash, compare } from "bcrypt";
+import { GENERATETOKEN } from "../middlewares/jwtAuthMW.js";
+import { USER_MESSAGES, SERVER_MESSAGES } from "../config/messages.js";
+
+// ENVIRONMENT VARIABLES
+dotenv.config();
 
 // CONSTANTS
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
@@ -37,7 +40,7 @@ const createUser = async (req, res) => {
     if (userExists.length > 0) {
       return res
         .status(StatusCodes.CONFLICT)
-        .send(USERMESSAGES.USER_ALREADY_EXISTS);
+        .send(USER_MESSAGES.USER_ALREADY_EXISTS);
     }
 
     const user = await CREATE_USER_DB({
@@ -47,19 +50,19 @@ const createUser = async (req, res) => {
     });
 
     if (user) {
-      console.log(USERMESSAGES.USER_CREATED, { user: user });
-      return res.status(StatusCodes.CREATED).send(USERMESSAGES.USER_CREATED);
+      console.log(USER_MESSAGES.USER_CREATED, { user: user });
+      return res.status(StatusCodes.CREATED).send(USER_MESSAGES.USER_CREATED);
     } else {
-      console.log(USERMESSAGES.ERROR_CREATING_USER, { error: error });
+      console.log(USER_MESSAGES.ERROR_CREATING_USER);
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(USERMESSAGES.INTERNAL_SERVER_ERROR);
+        .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
     }
   } catch (error) {
-    console.log(USERMESSAGES.ERROR_CREATING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_CREATING_USER, { error: error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(USERMESSAGES.INTERNAL_SERVER_ERROR);
+      .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
   }
 };
 
@@ -69,19 +72,19 @@ const readUser = async (req, res) => {
     const user = await READ_USER_DB(query, fields);
 
     if (user.length > 0) {
-      console.log(USERMESSAGES.USER_FOUND, { user: user });
+      console.log(USER_MESSAGES.USER_FOUND, { user: user });
       return res.status(StatusCodes.OK).send(user);
     } else {
-      console.log(USERMESSAGES.USER_NOT_FOUND, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_FOUND, { user: user });
       return res
         .status(StatusCodes.NOT_FOUND)
-        .send(USERMESSAGES.USER_NOT_FOUND);
+        .send(USER_MESSAGES.USER_NOT_FOUND);
     }
   } catch (error) {
-    console.log(USERMESSAGES.ERROR_READING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_READING_USER, { error: error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(USERMESSAGES.INTERNAL_SERVER_ERROR);
+      .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
   }
 };
 
@@ -91,19 +94,19 @@ const updateUser = async (req, res) => {
     const data = req.body;
     const user = await UPDATE_USER_DB(query, data, fields);
     if (user) {
-      console.log(USERMESSAGES.USER_UPDATED, { user: user });
+      console.log(USER_MESSAGES.USER_UPDATED, { user: user });
       return res.status(StatusCodes.OK).send(user);
     } else {
-      console.log(USERMESSAGES.USER_NOT_UPDATED, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_UPDATED, { user: user });
       return res
         .status(StatusCodes.NOT_FOUND)
-        .send(USERMESSAGES.USER_NOT_UPDATED);
+        .send(USER_MESSAGES.USER_NOT_UPDATED);
     }
   } catch (error) {
-    console.log(USERMESSAGES.ERROR_UPDATING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_UPDATING_USER, { error: error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(USERMESSAGES.INTERNAL_SERVER_ERROR);
+      .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
   }
 };
 
@@ -112,19 +115,44 @@ const deleteUser = async (req, res) => {
     const query = { email: req.query.email };
     const user = await DELETE_USER_DB(query);
     if (user) {
-      console.log(USERMESSAGES.USER_DELETED, { user: user });
-      return res.status(StatusCodes.OK).send(USERMESSAGES.USER_DELETED);
+      console.log(USER_MESSAGES.USER_DELETED, { user: user });
+      return res.status(StatusCodes.OK).send(USER_MESSAGES.USER_DELETED);
     } else {
-      console.log(USERMESSAGES.USER_NOT_DELETED, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_DELETED, { user: user });
       return res
         .status(StatusCodes.NOT_FOUND)
-        .send(USERMESSAGES.USER_NOT_DELETED);
+        .send(USER_MESSAGES.USER_NOT_DELETED);
     }
   } catch (error) {
-    console.log(USERMESSAGES.ERROR_DELETING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_DELETING_USER, { error: error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(USERMESSAGES.INTERNAL_SERVER_ERROR);
+      .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
+  }
+};
+
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  const query = { email: email };
+
+  const user = await READ_USER_DB(query);
+
+  if (user.length > 0) {
+    const validPassword = await compare(password, user[0].password);
+    if (validPassword) {
+      const payload = { user_id: user[0]._id, email: email };
+      const { token, refreshToken } = GENERATETOKEN(payload);
+      console.log(USER_MESSAGES.USER_LOGGED_IN, { user: user });
+      return res.status(StatusCodes.OK).json({token, refreshToken});
+    } else {
+      console.log(USER_MESSAGES.USER_NOT_AUTHORIZED);
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .send(USER_MESSAGES.USER_NOT_AUTHORIZED);
+    }
+  } else {
+    console.log(USER_MESSAGES.USER_NOT_FOUND);
+    return res.status(StatusCodes.NOT_FOUND).send(USER_MESSAGES.USER_NOT_FOUND);
   }
 };
 
@@ -133,4 +161,5 @@ export {
   readUser as READ_USER,
   updateUser as UPDATE_USER,
   deleteUser as DELETE_USER,
+  loginUser as LOGIN_USER,
 };
