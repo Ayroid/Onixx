@@ -1,5 +1,5 @@
 import { MESSAGEMODEL } from "../../models/messageModel.js";
-import { MESSAGE_MESSAGES } from "../../config/messages.js";
+import { MESSAGE_MESSAGES } from "../../utils/messages.js";
 
 // DATABASE OPERATIONS
 

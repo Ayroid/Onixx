@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { VERIFYTOKEN, GENERATETOKEN } from "../middlewares/jwtAuthMW.js";
-import { SERVER_MESSAGES } from "../config/messages.js";
+import { SERVER_MESSAGES } from "../utils/messages.js";
 
 // CONTROLLERS
 

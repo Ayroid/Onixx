@@ -5,7 +5,7 @@ import {
   MESSAGE_MESSAGES,
   SERVER_MESSAGES,
   USER_MESSAGES,
-} from "../config/messages.js";
+} from "../utils/messages.js";
 
 // CONSTANTS
 const fields = {

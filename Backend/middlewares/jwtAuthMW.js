@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
-import { SERVER_MESSAGES } from "../config/messages.js";
+import { SERVER_MESSAGES } from "../utils/messages.js";
 
 dotenv.config();
 

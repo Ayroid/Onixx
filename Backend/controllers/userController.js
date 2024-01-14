@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { StatusCodes } from "http-status-codes";
 import { genSalt, hash, compare } from "bcrypt";
 import { GENERATETOKEN } from "../middlewares/jwtAuthMW.js";
-import { USER_MESSAGES, SERVER_MESSAGES } from "../config/messages.js";
+import { USER_MESSAGES, SERVER_MESSAGES } from "../utils/messages.js";
 
 // ENVIRONMENT VARIABLES
 dotenv.config();

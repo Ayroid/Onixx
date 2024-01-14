@@ -1,5 +1,5 @@
 import { USERMODEL } from "../../models/userModel.js";
-import { USER_MESSAGES } from "../../config/messages.js";
+import { USER_MESSAGES } from "../../utils/messages.js";
 
 // DATABASE OPERATIONS
 
