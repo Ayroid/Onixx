@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DB_MESSAGES } from "./messages.js";
+import { DB_MESSAGES } from "../utils/messages.js";
 
 class Database {
   constructor(uri, options) {
