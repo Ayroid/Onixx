@@ -22,9 +22,25 @@ const createUserDB = async (data) => {
   }
 };
 
-const readUserDB = async (query, fields) => {
+const readUserDB = async (
+  query,
+  fields,
+  populateFields,
+  populateFieldsSelect
+) => {
   try {
-    const result = await USERMODEL.find(query).select(fields);
+    let result;
+    if (!fields || !populateFields || !populateFieldsSelect) {
+      result = await USERMODEL.find(query);
+    } else {
+      result = await USERMODEL.find(query)
+        .select(fields)
+        .populate({
+          path: populateFields,
+          select: populateFieldsSelect,
+        })
+        .setOptions({ strictPopulate: false });
+    }
     if (result) {
       console.log(USER_MESSAGES.USER_READ, { userId: result[0].email });
       return result;

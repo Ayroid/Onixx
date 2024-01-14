@@ -37,6 +37,7 @@ const USER_MESSAGES = {
 };
 
 const MESSAGE_MESSAGES = {
+  MESSAGE_ALREADY_EXISTS: "Message Already Exists ❌ ",
   MESSAGE_CREATED: "Message Created ✅ ",
   MESSAGE_NOT_CREATED: "Message Not Created ❌ ",
   MESSAGE_READ: "Message Read ✅ ",

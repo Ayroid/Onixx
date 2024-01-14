@@ -10,12 +10,14 @@ dotenv.config();
 // CONSTANTS
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 const fields = {
-  _id: 0,
   __v: 0,
   password: 0,
   created_at: 0,
   updated_at: 0,
 };
+
+const populateFields = "messages";
+const populateFieldsSelect = { content: 1 };
 
 // DATABASE CONTROLLERS
 
@@ -68,9 +70,13 @@ const createUser = async (req, res) => {
 
 const readUser = async (req, res) => {
   try {
-    const query = !req.query.email ? {} : { email: req.query.email };
-    const user = await READ_USER_DB(query, fields);
-
+    const query = { _id: req.user.user_id };
+    const user = await READ_USER_DB(
+      query,
+      fields,
+      populateFields,
+      populateFieldsSelect
+    );
     if (user.length > 0) {
       console.log(USER_MESSAGES.USER_FOUND, { user: user });
       return res.status(StatusCodes.OK).send(user);
@@ -90,7 +96,7 @@ const readUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const query = { email: req.query.email };
+    const query = { _id: req.user.user_id };
     const data = req.body;
     const user = await UPDATE_USER_DB(query, data, fields);
     if (user) {
@@ -112,7 +118,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const query = { email: req.query.email };
+    const query = { _id: req.user.user_id };
     const user = await DELETE_USER_DB(query);
     if (user) {
       console.log(USER_MESSAGES.USER_DELETED, { user: user });
@@ -141,9 +147,10 @@ const loginUser = async (req, res) => {
     const validPassword = await compare(password, user[0].password);
     if (validPassword) {
       const payload = { user_id: user[0]._id, email: email };
+      console.log(payload);
       const { token, refreshToken } = GENERATETOKEN(payload);
       console.log(USER_MESSAGES.USER_LOGGED_IN, { user: user });
-      return res.status(StatusCodes.OK).json({token, refreshToken});
+      return res.status(StatusCodes.OK).json({ token, refreshToken });
     } else {
       console.log(USER_MESSAGES.USER_NOT_AUTHORIZED);
       return res
