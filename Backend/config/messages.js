@@ -10,7 +10,8 @@ const SERVER_MESSAGES = {
   SERVER_CONNECTION_ERROR: "Server connection error ❌ ",
   SERVER_DISCONNECTED: "Server disconnected ✅ ",
   SERVER_DISCONNECTION_ERROR: "Server disconnection error ❌ ",
-  UNAUTHORIZED_ACCESS: "Authorized access ❌ ",
+  AUTHORIZED_ACCESS: "Authorized access ✅ ",
+  UNAUTHORIZED_ACCESS: "Unauthorized access ❌ ",
   INTERNAL_SERVER_ERROR: "Internal Server Error ❌ ",
 };
 
