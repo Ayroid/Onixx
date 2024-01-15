@@ -41,11 +41,11 @@ const readUserDB = async (
         })
         .setOptions({ strictPopulate: false });
     }
-    if (result) {
+    if (result.length > 0) {
       console.log(USER_MESSAGES.USER_READ, { userId: result[0].email });
       return result;
     } else {
-      console.log(USER_MESSAGES.USER_NOT_READ, { userId: result[0].email });
+      console.log(USER_MESSAGES.USER_NOT_READ);
       return false;
     }
   } catch (error) {
