@@ -1,0 +1,40 @@
+.mainDiv {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 10dvh;
+  gap: 5rem;
+  background-image: linear-gradient(
+    180deg,
+    hsl(0deg 0% 0%) 0%,
+    hsl(344deg 0% 3%) 33%,
+    hsl(272deg 53% 18%) 67%,
+    hsl(273deg 100% 40%) 100%
+  );
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 3rem 2rem;
+  border-radius: 5px;
+}
+
+.formHeader {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2rem;
+  color: var(--highlight);
+  font-size: 2rem;
+}
+
+.logo img {
+  width: 8dvw;
+  border-radius: 25px;
+}

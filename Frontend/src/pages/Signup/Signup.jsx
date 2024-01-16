@@ -1,8 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import styles from "./Signup.module.css";
 
-import InputField from "../components/InputField";
-import FormButton from "../components/FormButton";
+import InputField from "../../components/InputField/InputField";
+import FormButton from "../../components/FormButton/FormButton";
+import FormHeader from "../../components/FormHeader/FormHeader";
+
+// CSS STYLES
+const { mainDiv, formBody, logo } = styles;
 
 const Signup = () => {
   const REGISTER_URL = "http://localhost:3000/api/user/register";
@@ -33,8 +38,8 @@ const Signup = () => {
 
     axios
       .post(REGISTER_URL, user)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
+        console.log("User registered successfully");
       })
       .catch((err) => {
         console.log(err);
@@ -42,43 +47,48 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500 ">
-      <form
-        className="h-96 rounded bg-slate-400 bg-opacity-30 px-16 py-8"
-        onSubmit={submitForm}
-      >
-        <h1 className="mb-8 text-center text-2xl font-bold">
-          Log in to your account
-        </h1>
+    <div className={mainDiv}>
+      <div className={logo}>
+        <img src="/logo/onixx.png" alt="logo" />
+      </div>
+      <form className={formBody} onSubmit={submitForm}>
+        <FormHeader
+          preHeadingText="Join "
+          preHeadingSpanText="the crew"
+          headingText="Create new "
+          headingSpanText="account"
+          changePageText="Already have an account? "
+          changePageSpanText="Login"
+        />
         <InputField
-          inputLabel="Username"
-          type="text"
           id="username"
+          type="text"
           value={username}
           valueUpdater={updateUsername}
           required={true}
+          inputLabel="Username"
+          placeholder=""
         />
         <InputField
-          inputLabel="Email"
-          type="email"
           id="email"
+          type="email"
           value={email}
           valueUpdater={updateEmail}
           required={true}
+          inputLabel="Email"
+          placeholder=""
         />
         <InputField
-          inputLabel="Password"
-          type="password"
           id="password"
+          type="password"
           value={password}
           valueUpdater={updatePassword}
           required={true}
+          inputLabel="Password"
+          placeholder=""
         />
         <FormButton id="registerButton" type="submit" text="Register" />
       </form>
-      <div className="h-auto ">
-        <img src="/logo/onixx.png" alt="logo" />
-      </div>
     </div>
   );
 };

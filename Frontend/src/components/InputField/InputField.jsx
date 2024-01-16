@@ -1,26 +1,36 @@
+// IMPORTS
 import PropTypes from "prop-types";
+import styles from "./InputField.module.css";
 
+// CSS STYLES
+const formInputDiv = [styles.formInputDiv].join("");
+const formInput = [styles.formInput].join("");
+const label = [styles.label].join("");
+
+// COMPONENT
 const InputField = ({
   id,
   type,
   value,
   valueUpdater,
+  placeholder,
   inputLabel,
   required,
 }) => {
   return (
-    <div className="group relative mt-1.5 flex flex-col">
-      <label className="target font-semibold" htmlFor={id}>
-        {inputLabel}
-      </label>
+    <div className={formInputDiv}>
       <input
-        className="trigger min-w-80 rounded border-none px-2 py-1 text-left font-semibold text-black outline-none"
-        type={type}
         id={id}
+        className={formInput}
+        type={type}
         value={value}
         onChange={valueUpdater}
+        placeholder={placeholder}
         required={required}
       />
+      <label htmlFor={id} className={label}>
+        {inputLabel}
+      </label>
     </div>
   );
 };
@@ -30,8 +40,9 @@ InputField.propTypes = {
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   valueUpdater: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
   inputLabel: PropTypes.string.isRequired,
-  required: PropTypes.bool,
+  required: PropTypes.bool.isRequired,
 };
 
 export default InputField;

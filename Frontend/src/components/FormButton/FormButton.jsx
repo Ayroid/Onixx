@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
+import styles from "./FormButton.module.css";
+
+// CSS Styles
+const formButton = styles.formButton;
 
 const FormButton = ({ text, id, type }) => {
   return (
-    <button
-      id={id}
-      type={type}
-      className="mt-6 min-w-80 max-w-xl rounded bg-purple-900 p-2 font-bold"
-    >
+    <button id={id} type={type} className={formButton}>
       {text}
     </button>
   );
