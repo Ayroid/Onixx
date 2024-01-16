@@ -28,6 +28,10 @@ const MessageForm = ({ buttonText, closeForm }) => {
     setContent("");
   };
 
+  const closeMessageForm = () => {
+    closeForm();
+  };
+
   const submitMessage = (e) => {
     e.preventDefault();
     const data = {
@@ -49,6 +53,7 @@ const MessageForm = ({ buttonText, closeForm }) => {
       })
       .finally(() => {
         resetStates();
+        closeMessageForm();
       });
   };
 
@@ -59,9 +64,7 @@ const MessageForm = ({ buttonText, closeForm }) => {
           className={crossButton}
           src="/icons/plus.png"
           alt="addButton"
-          onClick={() => {
-            closeForm();
-          }}
+          onClick={closeMessageForm}
         />
         <h2 className={headingStyle}>Secret</h2>
         <form className={form} onSubmit={submitMessage}>
