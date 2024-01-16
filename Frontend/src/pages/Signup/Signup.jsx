@@ -1,15 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "./Signup.module.css";
+import "../../css/form.css";
 
 import InputField from "../../components/InputField/InputField";
 import FormButton from "../../components/FormButton/FormButton";
 import FormHeader from "../../components/FormHeader/FormHeader";
-
-// CSS STYLES
-const { mainDiv, formBody, logo } = styles;
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const REGISTER_URL = "http://localhost:3000/api/user/register";
 
   const [username, setUsername] = useState("");
@@ -39,7 +39,7 @@ const Signup = () => {
     axios
       .post(REGISTER_URL, user)
       .then(() => {
-        console.log("User registered successfully");
+        navigate("/signin");
       })
       .catch((err) => {
         console.log(err);
@@ -47,11 +47,11 @@ const Signup = () => {
   };
 
   return (
-    <div className={mainDiv}>
-      <div className={logo}>
+    <div className="mainDiv">
+      <div className="logo">
         <img src="/logo/onixx.png" alt="logo" />
       </div>
-      <form className={formBody} onSubmit={submitForm}>
+      <form className="formBody" onSubmit={submitForm}>
         <FormHeader
           preHeadingText="Join "
           preHeadingSpanText="the crew"

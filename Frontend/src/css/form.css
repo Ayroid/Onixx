@@ -23,7 +23,7 @@
   background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(10px);
   padding: 3rem 2rem;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .formHeader {
@@ -35,6 +35,5 @@
 }
 
 .logo img {
-  width: 8dvw;
-  border-radius: 25px;
+  width: 5dvw;
 }

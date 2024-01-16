@@ -1,15 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "./Signin.module.css";
+import "../../css/form.css";
 
 import InputField from "../../components/InputField/InputField";
 import FormButton from "../../components/FormButton/FormButton";
 import FormHeader from "../../components/FormHeader/FormHeader";
-
-// CSS STYLES
-const { mainDiv, formBody, logo } = styles;
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
+  const navigate = useNavigate();
+
   const REGISTER_URL = "http://localhost:3000/api/user/login";
 
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ const Signin = () => {
     axios
       .post(REGISTER_URL, user)
       .then(() => {
-        console.log("User logged in successfully!");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -41,11 +41,11 @@ const Signin = () => {
   };
 
   return (
-    <div className={mainDiv}>
-      <div className={logo}>
+    <div className="mainDiv">
+      <div className="logo">
         <img src="/logo/onixx.png" alt="logo" />
       </div>
-      <form className={formBody} onSubmit={submitForm}>
+      <form className="formBody" onSubmit={submitForm}>
         <FormHeader
           preHeadingText="Great "
           preHeadingSpanText="to have you back!"
