@@ -11,7 +11,7 @@ import FormButton from "../FormButton/FormButton";
 // CSS Styles
 const { mainDiv, contentDiv, crossButton, form, headingStyle } = styles;
 
-const MessageForm = ({ buttonText }) => {
+const MessageForm = ({ buttonText, closeForm }) => {
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
 
@@ -55,7 +55,14 @@ const MessageForm = ({ buttonText }) => {
   return (
     <div className={mainDiv}>
       <div className={contentDiv}>
-        <img className={crossButton} src="/icons/plus.png" alt="addButton" />
+        <img
+          className={crossButton}
+          src="/icons/plus.png"
+          alt="addButton"
+          onClick={() => {
+            closeForm();
+          }}
+        />
         <h2 className={headingStyle}>Secret</h2>
         <form className={form} onSubmit={submitMessage}>
           <InputField
@@ -87,6 +94,7 @@ const MessageForm = ({ buttonText }) => {
 
 MessageForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
+  closeForm: PropTypes.func.isRequired,
 };
 
 export default MessageForm;

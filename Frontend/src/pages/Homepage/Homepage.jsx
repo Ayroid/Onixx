@@ -7,6 +7,15 @@ import AddButton from "../../components/AddButton/AddButton";
 // CSS Styles
 const { mainDiv, buttonDiv, messageForm } = styles;
 
+const toggleMessageForm = () => {
+  const messageForm = document.getElementById("messageForm");
+  if (messageForm.style.display === "flex") {
+    messageForm.style.display = "none";
+    return;
+  }
+  messageForm.style.display = "flex";
+};
+
 const Homepage = () => {
   const content = "Hello World!";
   const content2 = "lorem50dsaashdgashdgashdgajsdajsdjasgdasdadiuasd";
@@ -14,11 +23,11 @@ const Homepage = () => {
     <div className={mainDiv}>
       <Message content={content} highlightColor="var(--highlight)" />
       <Message content={content2} highlightColor="var(--highlight)" />
-      <div className={buttonDiv}>
-        <AddButton />
+      <div className={messageForm} id="messageForm">
+        <MessageForm buttonText="Post" closeForm={toggleMessageForm} />
       </div>
-      <div className={messageForm}>
-        <MessageForm buttonText="Post" />
+      <div className={buttonDiv} onClick={toggleMessageForm}>
+        <AddButton />
       </div>
     </div>
   );
