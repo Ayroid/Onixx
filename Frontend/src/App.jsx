@@ -7,6 +7,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Signup from "./pages/Signup/Signup";
 import Signin from "./pages/Signin/Signin";
 import Homepage from "./pages/Homepage/Homepage";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
