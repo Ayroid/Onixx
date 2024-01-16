@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "./Signup.module.css";
+import styles from "./Signin.module.css";
 
 import InputField from "../../components/InputField/InputField";
 import FormButton from "../../components/FormButton/FormButton";
@@ -9,16 +9,11 @@ import FormHeader from "../../components/FormHeader/FormHeader";
 // CSS STYLES
 const { mainDiv, formBody, logo } = styles;
 
-const Signup = () => {
-  const REGISTER_URL = "http://localhost:3000/api/user/register";
+const Signin = () => {
+  const REGISTER_URL = "http://localhost:3000/api/user/login";
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -31,7 +26,6 @@ const Signup = () => {
   const submitForm = (e) => {
     e.preventDefault();
     const user = {
-      username,
       email,
       password,
     };
@@ -39,7 +33,7 @@ const Signup = () => {
     axios
       .post(REGISTER_URL, user)
       .then(() => {
-        console.log("User registered successfully");
+        console.log("User logged in successfully!");
       })
       .catch((err) => {
         console.log(err);
@@ -53,21 +47,12 @@ const Signup = () => {
       </div>
       <form className={formBody} onSubmit={submitForm}>
         <FormHeader
-          preHeadingText="Join "
-          preHeadingSpanText="the crew"
-          headingText="Create new "
-          headingSpanText="account"
-          changePageText="Already have an account? "
-          changePageSpanText="Signin"
-        />
-        <InputField
-          id="username"
-          type="text"
-          value={username}
-          valueUpdater={updateUsername}
-          required={true}
-          inputLabel="Username"
-          placeholder=""
+          preHeadingText="Great "
+          preHeadingSpanText="to have you back!"
+          headingText="Login "
+          headingSpanText="now"
+          changePageText="Don't have an account? "
+          changePageSpanText="SignUp"
         />
         <InputField
           id="email"
@@ -87,10 +72,10 @@ const Signup = () => {
           inputLabel="Password"
           placeholder=""
         />
-        <FormButton id="registerButton" type="submit" text="Register" />
+        <FormButton id="registerButton" type="submit" text="Login" />
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Signin;
