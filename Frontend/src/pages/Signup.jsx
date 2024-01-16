@@ -26,9 +26,9 @@ const Signup = () => {
   const submitForm = (e) => {
     e.preventDefault();
     const user = {
-      username: username,
-      email: email,
-      password: password,
+      username,
+      email,
+      password,
     };
 
     axios
