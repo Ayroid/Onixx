@@ -12,39 +12,34 @@ const ProtectedRoute = ({ path, children }) => {
 
   useEffect(() => {
     const verifyToken = async () => {
-      try {
-        const jwtToken = localStorage.getItem("jwtToken");
-        const jwtRefreshToken = localStorage.getItem("jwtRefreshToken");
+      const jwtToken = localStorage.getItem("jwtToken");
+      const jwtRefreshToken = localStorage.getItem("jwtRefreshToken");
 
-        if (jwtRefreshToken == null && jwtToken == null) {
-          setVerified(false);
-          return;
-        } else if (jwtToken == null) {
-          await refreshToken().then((res) => {
-            setVerified(res);
-          });
-        } else {
-          await axios
-            .get("http://localhost:3000/api/token/verify", {
-              headers: {
-                Authorization: `Bearer ${jwtToken}`,
-              },
-            })
-            .then((res) => {
-              return res.status === 200
-                ? setVerified(true)
-                : setVerified(false);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      } catch (error) {
+      if (jwtRefreshToken == null && jwtToken == null) {
+        setVerified(false);
+      } else if (jwtToken == null) {
         await refreshToken().then((res) => {
           setVerified(res);
         });
-      } finally {
-        setLoading(false);
+      } else {
+        await axios
+          .get("http://localhost:3000/api/token/verify", {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          })
+          .then((res) => {
+            return res.status === 200 ? setVerified(true) : setVerified(false);
+          })
+          .catch(async (err) => {
+            console.log(err);
+            await refreshToken().then((res) => {
+              setVerified(res);
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       }
     };
     verifyToken();
