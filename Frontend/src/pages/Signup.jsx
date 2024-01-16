@@ -42,7 +42,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
       <form className="rounded bg-slate-400 px-16 py-8" onSubmit={submitForm}>
         <h1 className="mb-8 text-center text-2xl font-bold">
           Log in to your account
