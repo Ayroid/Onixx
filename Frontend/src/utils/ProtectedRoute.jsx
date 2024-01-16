@@ -31,7 +31,9 @@ const ProtectedRoute = ({ path, children }) => {
               },
             })
             .then((res) => {
-              return res.status === 200;
+              return res.status === 200
+                ? setVerified(true)
+                : setVerified(false);
             })
             .catch((err) => {
               console.log(err);
