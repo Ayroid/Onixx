@@ -42,8 +42,11 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
-      <form className="rounded bg-slate-400 px-16 py-8" onSubmit={submitForm}>
+    <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500 ">
+      <form
+        className="h-96 rounded bg-slate-400 bg-opacity-30 px-16 py-8"
+        onSubmit={submitForm}
+      >
         <h1 className="mb-8 text-center text-2xl font-bold">
           Log in to your account
         </h1>
@@ -73,6 +76,9 @@ const Signup = () => {
         />
         <FormButton id="registerButton" type="submit" text="Register" />
       </form>
+      <div className="h-auto ">
+        <img src="/logo/onixx.png" alt="logo" />
+      </div>
     </div>
   );
 };
