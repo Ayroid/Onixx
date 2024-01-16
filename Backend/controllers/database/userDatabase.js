@@ -14,10 +14,7 @@ const createUserDB = async (data) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      USER_MESSAGES.ERROR_CREATING_USER,
-      ({ data: data }, { error: error })
-    );
+    console.log(USER_MESSAGES.ERROR_CREATING_USER, (data, error));
     return false;
   }
 };
@@ -50,8 +47,8 @@ const readUserDB = async (
     }
   } catch (error) {
     console.log(USER_MESSAGES.ERROR_READING_USER, {
-      query: query,
-      error: error,
+      query,
+      error,
     });
     return false;
   }
@@ -71,10 +68,7 @@ const updateUserDB = async (query, data, fields) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      USER_MESSAGES.ERROR_UPDATING_USER,
-      ({ query: query }, { data: data }, { error: error })
-    );
+    console.log(USER_MESSAGES.ERROR_UPDATING_USER, (query, data, error));
     return false;
   }
 };
@@ -91,10 +85,7 @@ const deleteUserDB = async (query) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      USER_MESSAGES.ERROR_DELETING_USER,
-      ({ query: query }, { error: error })
-    );
+    console.log(USER_MESSAGES.ERROR_DELETING_USER, (query, error));
     return false;
   }
 };

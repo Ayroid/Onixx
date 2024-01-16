@@ -28,6 +28,12 @@ const Signup = () => {
     setPassword(e.target.value);
   };
 
+  const resetStates = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+  };
+
   const submitForm = (e) => {
     e.preventDefault();
     const user = {
@@ -43,6 +49,9 @@ const Signup = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        resetStates();
       });
   };
 

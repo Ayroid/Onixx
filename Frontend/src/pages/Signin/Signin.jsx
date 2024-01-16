@@ -23,6 +23,11 @@ const Signin = () => {
     setPassword(e.target.value);
   };
 
+  const resetStates = () => {
+    setEmail("");
+    setPassword("");
+  };
+
   const submitForm = (e) => {
     e.preventDefault();
     const user = {
@@ -32,11 +37,17 @@ const Signin = () => {
 
     axios
       .post(REGISTER_URL, user)
-      .then(() => {
+      .then((res) => {
+        const { token, refreshToken } = res.data;
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("jwtRefreshToken", refreshToken);
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        resetStates();
       });
   };
 

@@ -26,6 +26,8 @@ const verifyToken = (token, tokenType) => {
       payload = jwt.verify(token, process.env.JWT_SECRET);
     } else if (tokenType === "refreshToken") {
       payload = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    } else {
+      return false;
     }
     return payload;
   } catch (err) {
@@ -37,8 +39,10 @@ const verifyToken = (token, tokenType) => {
 const verifyTokenMW = (req, res, next) => {
   try {
     let accessToken = req.headers.authorization;
-    if (!accessToken)
+    if (!accessToken) {
+      console.log("No access token");
       return res.status(401).send(SERVER_MESSAGES.UNAUTHORIZED_ACCESS);
+    }
     accessToken = accessToken.split(" ")[1];
     const payload = verifyToken(accessToken, "accessToken");
     if (!payload) {

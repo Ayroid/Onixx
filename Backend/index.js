@@ -39,14 +39,16 @@ app.use("/api/token", TOKEN_ROUTER);
 
 // DATABASE DISCONNECTION
 
-process.on("SIGINT", async () => {
-  try {
-    await database.disconnect();
-    process.exit(0);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
+process.on("SIGINT", () => {
+  database
+    .disconnect()
+    .then(() => {
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
 });
 
 // LISTEN
