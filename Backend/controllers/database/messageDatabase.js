@@ -14,10 +14,7 @@ const createMessageDB = async (data) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      MESSAGE_MESSAGES.ERROR_CREATING_MESSAGE,
-      ({ data: data }, { error: error })
-    );
+    console.log(MESSAGE_MESSAGES.ERROR_CREATING_MESSAGE, (data, error));
     return false;
   }
 };
@@ -36,8 +33,8 @@ const readMessageDB = async (query, fields) => {
     }
   } catch (error) {
     console.log(MESSAGE_MESSAGES.ERROR_READING_MESSAGE, {
-      query: query,
-      error: error,
+      query,
+      error,
     });
     return false;
   }
@@ -57,10 +54,7 @@ const updateMessageDB = async (query, data, fields) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      MESSAGE_MESSAGES.ERROR_UPDATING_MESSAGE,
-      ({ query: query }, { data: data }, { error: error })
-    );
+    console.log(MESSAGE_MESSAGES.ERROR_UPDATING_MESSAGE, (query, data, error));
     return false;
   }
 };
@@ -77,10 +71,7 @@ const deleteMessageDB = async (query) => {
       return false;
     }
   } catch (error) {
-    console.log(
-      MESSAGE_MESSAGES.ERROR_DELETING_MESSAGE,
-      ({ query: query }, { error: error })
-    );
+    console.log(MESSAGE_MESSAGES.ERROR_DELETING_MESSAGE, (query, error));
     return false;
   }
 };

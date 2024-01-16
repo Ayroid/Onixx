@@ -43,7 +43,7 @@
   background-color: transparent;
   color: gray;
   font-weight: 900;
-  transition: 0.1s ease-out;
+  transition: 0.15s ease-out;
   transform-origin: left top;
   pointer-events: none;
   padding: 0.25rem 0.5rem;

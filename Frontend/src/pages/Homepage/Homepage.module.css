@@ -9,3 +9,9 @@
   right: 2rem;
   margin: 0.5rem;
 }
+
+.messageForm {
+  position: absolute;
+  width: fit-content;
+  top: 0;
+}

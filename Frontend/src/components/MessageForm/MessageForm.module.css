@@ -1,9 +1,47 @@
+.mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100dvh;
+  width: 100dvw;
+  z-index: 1;
+}
+
+.contentDiv {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: rgba(17, 17, 17, 0.54);
+  z-index: 2;
+  position: relative;
+}
+
+.crossButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  z-index: 3;
+  height: 1.2rem;
+  rotate: 45deg;
+}
+
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: max(40dvw, 350px);
+  width: max(25dvw, 300px);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 2rem;
+}
+
+.headingStyle {
+  padding-left: 1.25rem;
+  margin-bottom: -0.5rem;
 }

@@ -7,8 +7,8 @@
   padding: 0.5rem;
   border: none;
   font-size: 1rem;
-  width: max(25dvw, 16rem);
-  height: 2.5rem;
+  width: max(20dvw, 16rem);
+  height: 7rem;
   color: var(--text);
   font-weight: 600;
   transition: 0.1s ease-out;
@@ -41,14 +41,13 @@
 .label {
   position: absolute;
   font-size: 1rem;
+  top: 0;
+  bottom: -3.5rem;
   left: 0;
-  bottom: -1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
   background-color: transparent;
   color: gray;
-  font-weight: 600;
-  transition: 0.1s ease-out;
+  font-weight: 900;
+  transition: 0.15s ease-out;
   transform-origin: left top;
   pointer-events: none;
   padding: 0.5rem;
@@ -57,10 +56,10 @@
 .textArea:focus + .label {
   color: var(--highlight);
   top: 0;
-  transform: translateY(-30%) scale(0.9);
+  transform: translateY(-15%) scale(0.9);
 }
 
 .textArea:not(:placeholder-shown) + .label {
   top: 0;
-  transform: translateY(-30%) scale(0.9);
+  transform: translateY(-15%) scale(0.9);
 }

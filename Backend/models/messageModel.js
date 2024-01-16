@@ -6,6 +6,10 @@ const messageSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  heading: {
+    type: String,
+    required: true,
+  },
   content: {
     type: String,
     required: true,

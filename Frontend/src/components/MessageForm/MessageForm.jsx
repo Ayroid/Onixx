@@ -9,34 +9,38 @@ import TextAreaField from "../TextAreaField/TextAreaField";
 import FormButton from "../FormButton/FormButton";
 
 // CSS Styles
-const { form } = styles;
+const { mainDiv, contentDiv, crossButton, form, headingStyle } = styles;
 
 const MessageForm = ({ buttonText }) => {
   const [heading, setHeading] = useState("");
-  const [message, setMessage] = useState("");
+  const [content, setContent] = useState("");
 
   const updateHeading = (e) => {
     setHeading(e.target.value);
   };
 
-  const updateMessage = (e) => {
-    setMessage(e.target.value);
+  const updateContent = (e) => {
+    setContent(e.target.value);
   };
 
   const resetStates = () => {
     setHeading("");
-    setMessage("");
+    setContent("");
   };
 
   const submitMessage = (e) => {
     e.preventDefault();
-    const message = {
+    const data = {
       heading,
-      message,
+      content,
     };
 
     axios
-      .post("http://192.168.1.9:3000/api/message/", message)
+      .post("http://192.168.1.9:3000/api/message/", data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        },
+      })
       .then(() => {
         console.log("Message sent");
       })
@@ -49,28 +53,35 @@ const MessageForm = ({ buttonText }) => {
   };
 
   return (
-    <form className={form} onSubmit={submitMessage}>
-      <InputField
-        id="headingField"
-        type="text"
-        value={heading}
-        valueUpdater={updateHeading}
-        required={true}
-        inputLabel="Heading"
-        placeholder=""
-      />
-      <TextAreaField
-        id="messageField"
-        cols="30"
-        rows="10"
-        placeholder=""
-        value={message}
-        valueUpdater={updateMessage}
-        inputLabel="Message"
-        required={true}
-      />
-      <FormButton id="messageFormButton" type="submit" text={buttonText} />
-    </form>
+    <div className={mainDiv}>
+      <div className={contentDiv}>
+        <img className={crossButton} src="/icons/plus.png" alt="addButton" />
+        <h2 className={headingStyle}>Secret</h2>
+        <form className={form} onSubmit={submitMessage}>
+          <InputField
+            id="headingField"
+            type="text"
+            value={heading}
+            valueUpdater={updateHeading}
+            required={true}
+            inputLabel="Heading"
+            placeholder=""
+          />
+          <TextAreaField
+            id="messageField"
+            cols="30"
+            rows="10"
+            placeholder=""
+            value={content}
+            valueUpdater={updateContent}
+            inputLabel="Message"
+            required={true}
+          />
+          <div style={{ marginTop: "1rem" }}></div>
+          <FormButton id="messageFormButton" type="submit" text={buttonText} />
+        </form>
+      </div>
+    </div>
   );
 };
 
