@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate();
 
-  const REGISTER_URL = "http://localhost:3000/api/user/register";
+  const REGISTER_URL = "http://192.168.1.9:3000/api/user/register";
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

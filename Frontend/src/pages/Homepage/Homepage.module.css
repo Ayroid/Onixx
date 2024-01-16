@@ -1,0 +1,11 @@
+.mainDiv {
+  position: relative;
+  min-height: 100dvh;
+}
+
+.buttonDiv {
+  position: absolute;
+  bottom: 3rem;
+  right: 2rem;
+  margin: 0.5rem;
+}

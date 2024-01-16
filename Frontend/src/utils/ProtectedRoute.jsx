@@ -14,7 +14,7 @@ const ProtectedRoute = ({ path, children }) => {
       const refreshToken = localStorage.getItem("jwtRefreshToken");
 
       const response = await axios.get(
-        "http://localhost:3000/api/token/refresh",
+        "http://192.168.1.9:3000/api/token/refresh",
         {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
@@ -44,7 +44,7 @@ const ProtectedRoute = ({ path, children }) => {
       });
     } else {
       await axios
-        .get("http://localhost:3000/api/token/verify", {
+        .get("http://192.168.1.9:3000/api/token/verify", {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
