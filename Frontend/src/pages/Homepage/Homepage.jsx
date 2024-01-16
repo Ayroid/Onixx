@@ -4,6 +4,8 @@ import Message from "../../components/Message/Message";
 import MessageForm from "../../components/MessageForm/MessageForm";
 import AddButton from "../../components/AddButton/AddButton";
 
+import useFetch from "../../hooks/useFetch";
+
 // CSS Styles
 const { mainDiv, buttonDiv, messageForm } = styles;
 
@@ -17,12 +19,28 @@ const toggleMessageForm = () => {
 };
 
 const Homepage = () => {
-  const content = "Hello World!";
-  const content2 = "lorem50dsaashdgashdgashdgajsdajsdjasgdasdadiuasd";
+  const { data, loading, error } = useFetch({
+    url: "http://192.168.1.9:3000/api/message/",
+  });
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className={mainDiv}>
-      <Message content={content} highlightColor="var(--highlight)" />
-      <Message content={content2} highlightColor="var(--highlight)" />
+      {data.map((message) => (
+        <Message
+          key={message._id}
+          heading={message.heading}
+          content={message.content}
+          highlightColor="var(--highlight)"
+        />
+      ))}
       <div className={messageForm} id="messageForm">
         <MessageForm buttonText="Post" closeForm={toggleMessageForm} />
       </div>

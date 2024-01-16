@@ -1,6 +1,10 @@
 .mainDiv {
   position: relative;
   min-height: 100dvh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .buttonDiv {

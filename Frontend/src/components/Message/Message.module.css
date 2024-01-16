@@ -9,4 +9,16 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 2px solid;
   overflow-wrap: break-word;
+  flex: 1 0 calc(33.33% - 10px);
+}
+
+.headingStyle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contentStyle {
+  font-size: 1rem;
+  font-weight: 500;
 }
