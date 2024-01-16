@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { refreshToken } from "./AuthService";
 import { useEffect, useState } from "react";
 
 const ProtectedRoute = ({ path, children }) => {
@@ -10,38 +9,62 @@ const ProtectedRoute = ({ path, children }) => {
 
   const signUpPageRequested = path === "/signin" || path === "/signup";
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      const jwtToken = localStorage.getItem("jwtToken");
-      const jwtRefreshToken = localStorage.getItem("jwtRefreshToken");
+  const refreshToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem("jwtRefreshToken");
 
-      if (jwtRefreshToken == null && jwtToken == null) {
-        setVerified(false);
-      } else if (jwtToken == null) {
-        await refreshToken().then((res) => {
-          setVerified(res);
-        });
-      } else {
-        await axios
-          .get("http://localhost:3000/api/token/verify", {
-            headers: {
-              Authorization: `Bearer ${jwtToken}`,
-            },
-          })
-          .then((res) => {
-            return res.status === 200 ? setVerified(true) : setVerified(false);
-          })
-          .catch(async (err) => {
-            console.log(err);
-            await refreshToken().then((res) => {
-              setVerified(res);
-            });
-          })
-          .finally(() => {
-            setLoading(false);
-          });
+      const response = await axios.get(
+        "http://localhost:3000/api/token/refresh",
+        {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const newToken = response.data.token;
+        localStorage.setItem("jwtToken", newToken);
+        return true;
       }
-    };
+      return false;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const verifyToken = async () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const jwtRefreshToken = localStorage.getItem("jwtRefreshToken");
+
+    if (jwtRefreshToken == null && jwtToken == null) {
+      setVerified(false);
+    } else if (jwtToken == null) {
+      await refreshToken().then((res) => {
+        setVerified(res);
+      });
+    } else {
+      await axios
+        .get("http://localhost:3000/api/token/verify", {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
+        .then((res) => {
+          return res.status === 200 ? setVerified(true) : setVerified(false);
+        })
+        .catch(async (err) => {
+          console.log(err);
+          await refreshToken().then((res) => {
+            setVerified(res);
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
+  useEffect(() => {
     verifyToken();
   });
 
