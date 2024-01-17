@@ -8,17 +8,16 @@
   flex-direction: column;
 }
 
-@media (max-width: 1000px) {
-  .mainDiv {
-    grid-template-columns: repeat(2, 200px);
-    grid-auto-rows: 15dvh;
-    grid-auto-columns: 200px;
-  }
+.messages {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .buttonDiv {
   position: absolute;
-  bottom: 3rem;
+  bottom: 2rem;
   right: 2rem;
   margin: 0.5rem;
 }

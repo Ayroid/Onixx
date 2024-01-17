@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import moment from "moment-timezone";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -21,12 +22,12 @@ const userSchema = new mongoose.Schema({
   ],
   created_at: {
     type: Date,
-    default: Date.now,
+    default: () => moment().tz("Asia/Kolkata").toDate(),
     required: true,
   },
   updated_at: {
     type: Date,
-    default: Date.now,
+    default: () => moment().tz("Asia/Kolkata").toDate(),
     required: false,
   },
 });

@@ -1,0 +1,26 @@
+.mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  z-index: 10;
+  margin-bottom: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid white;
+}
+
+.logoDiv {
+  width: 60dvw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.25));
+}
+
+.splitNav {
+  width: 20dvw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

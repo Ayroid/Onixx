@@ -1,0 +1,17 @@
+.mainDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 20dvw;
+  max-width: 20dvw;
+  margin-right: 2.5rem;
+}
+
+.profile {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-top: -0.75rem;
+}

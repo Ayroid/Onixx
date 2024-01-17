@@ -41,6 +41,7 @@ const MESSAGE_MESSAGES = {
   MESSAGE_ALREADY_EXISTS: "Message Already Exists ❌ ",
   MESSAGE_CREATED: "Message Created ✅ ",
   MESSAGE_NOT_CREATED: "Message Not Created ❌ ",
+  MESSAGE_NOT_FOUND: "Message Not Found ❌ ",
   MESSAGE_READ: "Message Read ✅ ",
   MESSAGE_NOT_READ: "Message Not Read ❌ ",
   MESSAGE_UPDATED: "Message Updated ✅ ",

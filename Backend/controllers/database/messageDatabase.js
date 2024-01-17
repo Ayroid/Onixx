@@ -21,14 +21,13 @@ const createMessageDB = async (data) => {
 
 const readMessageDB = async (query, fields) => {
   try {
+    console.log("Query:", query);
     const result = await MESSAGEMODEL.find(query).select(fields);
-    if (result) {
+    if (result.length > 0) {
       console.log(MESSAGE_MESSAGES.MESSAGE_READ, { userId: result[0].email });
       return result;
     } else {
-      console.log(MESSAGE_MESSAGES.MESSAGE_NOT_READ, {
-        userId: result[0].email,
-      });
+      console.log(MESSAGE_MESSAGES.MESSAGE_NOT_READ);
       return false;
     }
   } catch (error) {

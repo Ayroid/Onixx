@@ -1,5 +1,6 @@
 import styles from "./Homepage.module.css";
 
+import Navbar from "../../components/Navbar/Navbar";
 import Message from "../../components/Message/Message";
 import MessageForm from "../../components/MessageForm/MessageForm";
 import AddButton from "../../components/AddButton/AddButton";
@@ -7,7 +8,7 @@ import AddButton from "../../components/AddButton/AddButton";
 import useFetch from "../../hooks/useFetch";
 
 // CSS Styles
-const { mainDiv, buttonDiv, messageForm } = styles;
+const { mainDiv, messages, buttonDiv, messageForm } = styles;
 
 const toggleMessageForm = () => {
   const messageForm = document.getElementById("messageForm");
@@ -19,7 +20,7 @@ const toggleMessageForm = () => {
 };
 
 const Homepage = () => {
-  const { data, loading, error } = useFetch({
+  const { data, loading } = useFetch({
     url: "http://192.168.1.9:3000/api/message/",
   });
 
@@ -27,24 +28,27 @@ const Homepage = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <div className={mainDiv}>
-      {data.map((message) => (
-        <Message
-          key={message._id}
-          heading={message.heading}
-          content={message.content}
-          highlightColor={
-            message._id === localStorage.getItem("messageId")
-              ? "var(--highlight)"
-              : null
-          }
-        />
-      ))}
+      <Navbar />
+      <div className={messages}>
+        {data == null ? (
+          <div>No Secrets? Strange...</div>
+        ) : (
+          data.map((message) => (
+            <Message
+              key={message._id}
+              heading={message.heading}
+              content={message.content}
+              highlightColor={
+                message._id === localStorage.getItem("messageId")
+                  ? "var(--highlight)"
+                  : null
+              }
+            />
+          ))
+        )}
+      </div>
       <div className={messageForm} id="messageForm">
         <MessageForm buttonText="Post" closeForm={toggleMessageForm} />
       </div>
