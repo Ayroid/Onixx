@@ -6,6 +6,7 @@ import MessageForm from "../../components/MessageForm/MessageForm";
 import AddButton from "../../components/AddButton/AddButton";
 
 import useFetch from "../../hooks/useFetch";
+import Loading from "../../components/Loading/Loading";
 
 // CSS Styles
 const { mainDiv, messages, buttonDiv, messageForm } = styles;
@@ -25,7 +26,7 @@ const Homepage = () => {
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
