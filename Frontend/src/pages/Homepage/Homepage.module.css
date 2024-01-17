@@ -1,10 +1,19 @@
 .mainDiv {
   position: relative;
   min-height: 100dvh;
+  max-width: 100dvw;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+  .mainDiv {
+    grid-template-columns: repeat(2, 200px);
+    grid-auto-rows: 15dvh;
+    grid-auto-columns: 200px;
+  }
 }
 
 .buttonDiv {

@@ -39,11 +39,10 @@ const Signin = () => {
       .post(REGISTER_URL, user)
       .then((res) => {
         const { token, refreshToken, payload } = res.data;
-        console.log(res.data);
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("jwtRefreshToken", refreshToken);
         localStorage.setItem("userId", payload.user_id);
-        localStorage.setItem("messageId", payload.messages[0]._id);
+        localStorage.setItem("messageId", payload.messages[0]);
         navigate("/");
       })
       .catch((err) => {

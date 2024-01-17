@@ -45,8 +45,8 @@ const MessageForm = ({ buttonText, closeForm }) => {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
       })
-      .then(() => {
-        console.log("Message sent");
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);

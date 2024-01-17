@@ -36,4 +36,5 @@
 
 .logo img {
   width: 5dvw;
+  min-width: 50px;
 }

@@ -55,9 +55,10 @@ const createMessage = async (req, res) => {
       );
       if (updated) {
         console.log(USER_MESSAGES.USER_UPDATED, { message });
-        return res
-          .status(StatusCodes.CREATED)
-          .send(MESSAGE_MESSAGES.MESSAGE_CREATED);
+        return res.status(StatusCodes.CREATED).send({
+          response: MESSAGE_MESSAGES.MESSAGE_CREATED,
+          messageId: message._id,
+        });
       } else {
         console.log(USER_MESSAGES.ERROR_UPDATING_USER);
         return res

@@ -38,7 +38,11 @@ const Homepage = () => {
           key={message._id}
           heading={message.heading}
           content={message.content}
-          highlightColor="var(--highlight)"
+          highlightColor={
+            message._id === localStorage.getItem("messageId")
+              ? "var(--highlight)"
+              : null
+          }
         />
       ))}
       <div className={messageForm} id="messageForm">
