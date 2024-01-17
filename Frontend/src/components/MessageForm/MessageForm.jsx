@@ -52,7 +52,8 @@ const MessageForm = ({ buttonText, closeForm }) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        localStorage.setItem("messageId", res.data.messageId);
       })
       .catch((err) => {
         console.log(err);

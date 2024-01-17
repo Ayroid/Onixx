@@ -40,11 +40,7 @@ const Homepage = () => {
               key={message._id}
               heading={message.heading}
               content={message.content}
-              highlightColor={
-                message._id === localStorage.getItem("messageId")
-                  ? "var(--highlight)"
-                  : null
-              }
+              user={message._id === localStorage.getItem("messageId")}
             />
           ))
         )}
