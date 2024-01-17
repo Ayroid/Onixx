@@ -86,9 +86,8 @@ const readMessage = async (req, res) => {
 
     if (message.length > 0) {
       console.log(MESSAGE_MESSAGES.MESSAGE_FOUND, { message });
-      setTimeout(() => {
-        return res.status(StatusCodes.OK).send(message);
-      }, 5000);
+
+      return res.status(StatusCodes.OK).send(message);
     } else {
       console.log(MESSAGE_MESSAGES.MESSAGE_NOT_FOUND, { message });
       return res
