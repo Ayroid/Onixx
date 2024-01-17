@@ -16,7 +16,10 @@ const deleteMessage = () => {
       console.log(res.data);
       localStorage.removeItem("messageId");
     })
-    .catch(() => {});
+    .catch(() => {})
+    .finally(() => {
+      window.location.reload();
+    });
 };
 
 const Message = ({ heading, content, user }) => {
