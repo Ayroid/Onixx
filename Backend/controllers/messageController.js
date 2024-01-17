@@ -9,7 +9,6 @@ import {
 
 // CONSTANTS
 const fields = {
-  _id: 0,
   __v: 0,
   user_id: 0,
   created_at: 0,

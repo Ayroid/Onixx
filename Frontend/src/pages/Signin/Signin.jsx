@@ -38,9 +38,12 @@ const Signin = () => {
     axios
       .post(REGISTER_URL, user)
       .then((res) => {
-        const { token, refreshToken } = res.data;
+        const { token, refreshToken, payload } = res.data;
+        console.log(res.data);
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("jwtRefreshToken", refreshToken);
+        localStorage.setItem("userId", payload.user_id);
+        localStorage.setItem("messageId", payload.messages[0]._id);
         navigate("/");
       })
       .catch((err) => {

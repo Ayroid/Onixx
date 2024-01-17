@@ -8,7 +8,7 @@ import { USER_MESSAGES, SERVER_MESSAGES } from "../utils/messages.js";
 dotenv.config();
 
 // CONSTANTS
-const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10);
 const fields = {
   __v: 0,
   password: 0,
@@ -33,7 +33,7 @@ import {
 const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const query = { email: email };
+    const query = { email };
 
     const salt = await genSalt(SALT_ROUNDS);
     const hashedPassword = await hash(password, salt);
@@ -52,7 +52,7 @@ const createUser = async (req, res) => {
     });
 
     if (user) {
-      console.log(USER_MESSAGES.USER_CREATED, { user: user });
+      console.log(USER_MESSAGES.USER_CREATED, { user });
       return res.status(StatusCodes.CREATED).send(USER_MESSAGES.USER_CREATED);
     } else {
       console.log(USER_MESSAGES.ERROR_CREATING_USER);
@@ -61,7 +61,7 @@ const createUser = async (req, res) => {
         .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
     }
   } catch (error) {
-    console.log(USER_MESSAGES.ERROR_CREATING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_CREATING_USER, { error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
@@ -78,16 +78,16 @@ const readUser = async (req, res) => {
       populateFieldsSelect
     );
     if (user.length > 0) {
-      console.log(USER_MESSAGES.USER_FOUND, { user: user });
+      console.log(USER_MESSAGES.USER_FOUND, { user });
       return res.status(StatusCodes.OK).send(user);
     } else {
-      console.log(USER_MESSAGES.USER_NOT_FOUND, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_FOUND, { user });
       return res
         .status(StatusCodes.NOT_FOUND)
         .send(USER_MESSAGES.USER_NOT_FOUND);
     }
   } catch (error) {
-    console.log(USER_MESSAGES.ERROR_READING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_READING_USER, { error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
@@ -100,16 +100,16 @@ const updateUser = async (req, res) => {
     const data = req.body;
     const user = await UPDATE_USER_DB(query, data, fields);
     if (user) {
-      console.log(USER_MESSAGES.USER_UPDATED, { user: user });
+      console.log(USER_MESSAGES.USER_UPDATED, { user });
       return res.status(StatusCodes.OK).send(user);
     } else {
-      console.log(USER_MESSAGES.USER_NOT_UPDATED, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_UPDATED, { user });
       return res
         .status(StatusCodes.NOT_FOUND)
         .send(USER_MESSAGES.USER_NOT_UPDATED);
     }
   } catch (error) {
-    console.log(USER_MESSAGES.ERROR_UPDATING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_UPDATING_USER, { error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
@@ -121,16 +121,16 @@ const deleteUser = async (req, res) => {
     const query = { _id: req.user.user_id };
     const user = await DELETE_USER_DB(query);
     if (user) {
-      console.log(USER_MESSAGES.USER_DELETED, { user: user });
+      console.log(USER_MESSAGES.USER_DELETED, { user });
       return res.status(StatusCodes.OK).send(USER_MESSAGES.USER_DELETED);
     } else {
-      console.log(USER_MESSAGES.USER_NOT_DELETED, { user: user });
+      console.log(USER_MESSAGES.USER_NOT_DELETED, { user });
       return res
         .status(StatusCodes.NOT_FOUND)
         .send(USER_MESSAGES.USER_NOT_DELETED);
     }
   } catch (error) {
-    console.log(USER_MESSAGES.ERROR_DELETING_USER, { error: error });
+    console.log(USER_MESSAGES.ERROR_DELETING_USER, { error });
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(SERVER_MESSAGES.INTERNAL_SERVER_ERROR);
@@ -139,18 +139,22 @@ const deleteUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  const query = { email: email };
+  const query = { email };
 
   const user = await READ_USER_DB(query);
 
   if (user.length > 0) {
     const validPassword = await compare(password, user[0].password);
     if (validPassword) {
-      const payload = { user_id: user[0]._id, email: email };
-      console.log(payload);
+      let payload = { user_id: user[0]._id, email };
       const { token, refreshToken } = GENERATETOKEN(payload);
-      console.log(USER_MESSAGES.USER_LOGGED_IN, { user: user });
-      return res.status(StatusCodes.OK).json({ token, refreshToken });
+      payload = {
+        user_id: user[0]._id,
+        username: user[0].username,
+        messages: user[0].messages,
+      };
+      console.log(USER_MESSAGES.USER_LOGGED_IN, { user });
+      return res.status(StatusCodes.OK).json({ token, refreshToken, payload });
     } else {
       console.log(USER_MESSAGES.USER_NOT_AUTHORIZED);
       return res

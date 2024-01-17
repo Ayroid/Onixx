@@ -25,8 +25,9 @@ const ProtectedRoute = ({ path, children }) => {
         const newToken = response.data.token;
         localStorage.setItem("jwtToken", newToken);
         return true;
+      } else {
+        return false;
       }
-      return false;
     } catch (error) {
       return false;
     }
@@ -38,9 +39,11 @@ const ProtectedRoute = ({ path, children }) => {
 
     if (jwtRefreshToken == null && jwtToken == null) {
       setVerified(false);
+      setLoading(false);
     } else if (jwtToken == null) {
       await refreshToken().then((res) => {
         setVerified(res);
+        setLoading(false);
       });
     } else {
       await axios
@@ -50,6 +53,7 @@ const ProtectedRoute = ({ path, children }) => {
           },
         })
         .then((res) => {
+          console.log(res);
           return res.status === 200 ? setVerified(true) : setVerified(false);
         })
         .catch(async (err) => {
