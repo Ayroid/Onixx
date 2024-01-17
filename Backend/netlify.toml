@@ -1,0 +1,6 @@
+[build]
+command = "npm run build"  # Adjust the build command as needed
+publish = "dist"  # Adjust the output directory based on your project structure
+
+[dev]
+command = "npm run start"  # Adjust the start command for local development
