@@ -15,7 +15,7 @@ const Navbar = () => {
         <Logo size={"2rem"} />
       </div>
       <div className={splitNav}>
-        <Profile />
+        <Profile username={localStorage.getItem("username")} />
       </div>
     </div>
   );

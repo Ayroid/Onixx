@@ -43,6 +43,7 @@ const Signin = () => {
         localStorage.setItem("jwtRefreshToken", refreshToken);
         localStorage.setItem("userId", payload.user_id);
         localStorage.setItem("messageId", payload.messages[0]);
+        localStorage.setItem("username", payload.username);
         navigate("/");
       })
       .catch((err) => {

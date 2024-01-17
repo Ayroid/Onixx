@@ -5,6 +5,9 @@
   width: 20dvw;
   max-width: 20dvw;
   margin-right: 2.5rem;
+  z-index: 3;
+  position: relative;
+  cursor: pointer;
 }
 
 .profile {
@@ -14,4 +17,62 @@
   object-fit: cover;
   cursor: pointer;
   margin-top: -0.75rem;
+}
+
+.profileInfo {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  top: 5dvh;
+  right: 0dvw;
+  min-width: 9rem;
+  max-width: 12rem;
+  background-color: #030303;
+  z-index: 1;
+  position: absolute;
+  padding: 0.3rem 0;
+}
+
+.profileInfo div {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.logout{
+  color: red;
+}
+
+.dropDownAnimation {
+  animation: dropDown 0.2s;
+}
+
+.dropDownAnimationReverse {
+  animation: dropDownReverse 0.2s;
+}
+
+@keyframes dropDown {
+  0% {
+    scale: 0.9;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes dropDownReverse {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 0.9;
+    opacity: 0;
+  }
 }
